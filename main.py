@@ -5,7 +5,6 @@ import numpy as np
 
 st.set_page_config(
     page_title = "tab name here",
-    page_icon="🧊",
     layout='wide'
 )
 
@@ -13,10 +12,10 @@ st.title("Productivity guide")
 
 kb = json.load(open("kb.json", 'r'))
 
-if "button1" not in st.session_state:
-    st.session_state.button1 = False
 if "counter" not in st.session_state:
     st.session_state.counter = 0
+if "state" not in st.session_state:
+    st.session_state.state = "page 1"
 # session_state is important
 # st.write("hello world")   # the default writing thing
 
@@ -30,25 +29,44 @@ if "counter" not in st.session_state:
 # st.success("Text success")    # Displays a small div to indicate success
 # st.metric()   # some cool way of showing a metric
 
-st.progress(25)
-
-def increase_counter():
-    st.session_state.counter += 1
-
-st.markdown("In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design.")
-
-colLeft, colRight = st.columns([1,4])
-colLeft.checkbox("value1", key="first option", value=False, disabled=False, on_change=increase_counter)
-colLeft.checkbox("value2", key="second option", value=False, disabled=False)
-
-st.write(st.session_state.counter)
-for i in range(st.session_state.counter):
-    st.write(st.session_state["button1"])
 
 
+def page1():
+    st.progress(st.session_state.counter)
 
+    def increase_counter():
+        st.session_state.counter += 1
 
+    st.markdown("In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design.")
 
+    colLeft, colRight = st.columns([1,4])
+
+    colLeft.checkbox("value1", key="first option", value=False, disabled=False, on_change=increase_counter)
+    colLeft.checkbox("value2", key="second option", value=False, disabled=False)
+
+    answer = colRight.radio("please select one", (kb[i] for i in kb))
+
+    colRight.write("You selected: " + answer)
+
+    st.write(st.session_state.counter)
+
+    st.markdown('---')
+
+    if st.button("Next"):
+        st.session_state['state'] = "page 2"
+        st.experimental_rerun()
+
+def page2():
+    st.subheader("This is the second page")
+
+    if st.button("Previous"):
+        st.session_state.state = "page 1"
+        st.experimental_rerun()
+
+if st.session_state.state == "page 1":
+    page1()
+else:
+    page2()
 
 
 #=====================OLD THTING=============================================
