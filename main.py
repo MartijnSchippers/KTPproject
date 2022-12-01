@@ -8,106 +8,26 @@ st.set_page_config(
     layout='wide'
 )
 
+if "activity" not in st.session_state:
+    st.session_state.activity = ""
+if "passion" not in st.session_state:
+    st.session_state.activity = 0
+if "weekly_workload" not in st.session_state:
+    st.session_state.weekly_workload = 0
+
 st.title("Productivity guide")
 
 kb = json.load(open("kb.json", 'r'))
 
-if "counter" not in st.session_state:
-    st.session_state.counter = 0
-if "state" not in st.session_state:
-    st.session_state.state = "page 1"
-# session_state is important
-# st.write("hello world")   # the default writing thing
+activity_questions = kb["student properties"]["activity"]["element_questions"]
 
-# col1, col2, col3 = st.columns(3)   # creates three columns
-# col1, col2 = st.columns([1,2])   # creates two columns with respective size
-# with st.expander("click here to expand"):  # 1-time loop that expands some text
+st.session_state.activity = st.columns([1,3])[0].text_input(activity_questions[0]["prompt"])
 
-# col1.markdown("#Markdown text format")
+st.session_state.passion = st.columns(2)[0].slider(activity_questions[1]["prompt"], 0, 10)
 
-# st.progress(0-100)    # shows progress of page
-# st.success("Text success")    # Displays a small div to indicate success
-# st.metric()   # some cool way of showing a metric
+st.session_state.weekly_workload = st.number_input(activity_questions[2]["prompt"], 0, 80)
 
-
-
-def page1():
-    st.progress(st.session_state.counter)
-
-    def increase_counter():
-        st.session_state.counter += 1
-
-    st.markdown("In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design.")
-
-    colLeft, colRight = st.columns([1,4])
-
-    colLeft.checkbox("value1", key="first option", value=False, disabled=False, on_change=increase_counter)
-    colLeft.checkbox("value2", key="second option", value=False, disabled=False)
-
-    answer = colRight.radio("please select one", (kb[i] for i in kb))
-
-    colRight.write("You selected: " + answer)
-
-    st.write(st.session_state.counter)
-
-    st.markdown('---')
-
-    if st.button("Next"):
-        st.session_state['state'] = "page 2"
-        st.experimental_rerun()
-
-def page2():
-    st.subheader("This is the second page")
-
-    if st.button("Previous"):
-        st.session_state.state = "page 1"
-        st.experimental_rerun()
-
-if st.session_state.state == "page 1":
-    page1()
-else:
-    page2()
-
-
-#=====================OLD THTING=============================================
-
-# st.title('[Title of the project]')
-
-
-# DATE_COLUMN = 'date/time'
-# DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
-#          'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
-
-# @st.cache
-# def load_data(nrows):
-#     data = pd.read_csv(DATA_URL, nrows=nrows)
-#     lowercase = lambda x: str(x).lower()
-#     data.rename(lowercase, axis='columns', inplace=True)
-#     data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-#     return data
-
-# data_load_state = st.text('Loading data...')
-# data = load_data(10000)
-# data_load_state.text('Loading done! (using st.cache)')
-
-# #raw data
-# if st.checkbox('Show raw data'):
-#     st.subheader('Raw data')
-#     st.write(data)
-
-# #nr of pickups per hour
-# st.subheader('Number of pickups by hour')
-# hist_values = np.histogram(
-#     data[DATE_COLUMN].dt.hour, bins=24, range=(0,24)
-# )[0]
-# st.bar_chart(hist_values)
-
-# #plot data on a map
-# st.subheader('Map of all pickups all day')
-# st.map(data)
-
-# #plot data on a map for 17:00
-# st.subheader("Map of pickups around 17:00")
-# hour_to_filter = 17
-# filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
-# st.map(filtered_data)
+if st.button("Process information"):
+    st.markdown("# You have selected the following:")
+    st.write("You enjoy " + (st.session_state.activity).lower() + " "
+    + str(st.session_state.weekly_workload) + " hours per week")

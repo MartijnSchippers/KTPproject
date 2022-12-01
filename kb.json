@@ -1,4 +1,28 @@
 {
-    "option1" : "Mirko",
-    "option2" : "Martijn"
+    "student properties" : {
+        "activity" : {
+            "passion" : 0,
+            "workload" : 0,
+            "element_questions" : [
+                {
+                    "prompt" : "What activity are you passionate about?",
+                    "answer" : ""
+                },
+                {
+                    "prompt" : "How passionate are you about your activity?",
+                    "answer" : 0
+                },
+                {
+                    "prompt" : "How many hours per week do you dedicate to your acitvity?",
+                    "answer" : 0
+                }
+            ]
+        },
+        "stragegy" : [
+            "work days", "work hours"
+        ],
+        "location" : [
+            "home", "work", "university", "library"
+        ]
+    }
 }
