@@ -41,8 +41,8 @@
           "variable_to_change" : "days_per_week"
         },
         {
-          "prompt": "How many hours per ** day ** would you be willing to dedicate to your acitvity?",
-          "type": "time_input",
+          "prompt": "How many hours per day would you be willing to dedicate to your acitvity?",
+          "type": "time",
           "variable_to_change" : "time_willing_to_spen_on_studying_per_day"
         },
         {

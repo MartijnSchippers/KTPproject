@@ -1,6 +1,7 @@
 ''''main scipt'''
 import json
 import streamlit as st
+import datetime
 
 from input_types import *
 
@@ -33,6 +34,29 @@ for i,question in enumerate(student_activity["element_questions"]):
             yes_no_input(question, student_activity, i)
         case "slider":
             slider_input(question, student_activity, i)
+        case "number":
+            number_input(question, student_activity, i)
+        case "time":
+            time_input(question, student_activity, i)
+
+if "button1" not in st.session_state:
+    st.session_state["button1"] = False
+
+
+if st.button("Process information"):
+    st.session_state["button1"] = not st.session_state["button1"]
+
+if st.session_state["button1"]:
+    st.markdown("## You entered the following data:")
+    for key in student_activity.keys():
+        if not isinstance(student_activity.get(key), list) and not isinstance(student_activity.get(key), dict):
+            st.write(student_activity.get(key))
+
+if st.button("Remove information"):
+    st.session_state["button1"] = not st.session_state["button1"]
+    st.experimental_rerun()
+
+
 # st.session_state.activity = st.columns([1,3])[0].text_input(activity_questions[0]["prompt"])
 
 # st.session_state.passion = st.columns(2)[0].slider(activity_questions[1]["prompt"], 0, 10)

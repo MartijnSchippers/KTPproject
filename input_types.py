@@ -1,4 +1,5 @@
 import streamlit as st
+import datetime
 
 def text_input (question, kb_location, element_number):
     '''This functiono creates a txt input and adds the answer to the dedicated location in the kb
@@ -33,7 +34,7 @@ def number_input(question, kb_location, element_number):
 
 def time_input(question, kb_location, element_number):
     st.markdown("### " + question["prompt"])
-    answer = st.columns([1,2])[0].slider(question["prompt"], question["range_min"], question["range_max"], label_visibility="collapsed", key=element_number)
+    answer = st.columns([1,7])[0].time_input(question["prompt"], value=datetime.time(00,00), label_visibility="collapsed", key=element_number)
     variable_to_change = question["variable_to_change"]
     kb_location[variable_to_change] = answer
     st.session_state[variable_to_change] = answer
