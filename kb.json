@@ -1,28 +1,62 @@
 {
-    "student properties" : {
-        "activity" : {
-            "passion" : 0,
-            "workload" : 0,
-            "element_questions" : [
-                {
-                    "prompt" : "What activity are you passionate about?",
-                    "answer" : ""
-                },
-                {
-                    "prompt" : "How passionate are you about your activity?",
-                    "answer" : 0
-                },
-                {
-                    "prompt" : "How many hours per week do you dedicate to your acitvity?",
-                    "answer" : 0
-                }
-            ]
+  "student properties": {
+    "activity": {
+      "name": "",
+      "passion": 0,
+      "willing_to_free_time": false,
+      "hours_of_study_per_week": 0,
+      "days_per_week": 0,
+      "time_willing_to_spen_on_studying_per_day": 0,
+      "is_happy_with_current_grades": false,
+      "element_questions": [
+        {
+          "prompt": "What activity are you passionate about?",
+          "type": "open_answer",
+          "variable_to_change" : "name"
         },
-        "stragegy" : [
-            "work days", "work hours"
-        ],
-        "location" : [
-            "home", "work", "university", "library"
-        ]
+        {
+          "prompt": "How passionate are you about your activity?",
+          "type": "slider",
+          "range_min": 0,
+          "range_max": 10,
+          "variable_to_change" : "passion"
+        },
+        {
+          "prompt" : "Are you willing to free time to dedicate to this activity?",
+          "type" : "yes/no",
+          "variable_to_change" : "willing_to_free_time"
+        },
+        {
+          "prompt": "How many hours per week do you dedicate to your acitvity?",
+          "type": "number",
+          "range_min" : 0,
+          "range_max" : 100,
+          "variable_to_change" : "hours_of_study_per_week"
+        },
+        {
+          "prompt": "How many days per week do you dedicate to your acitvity?",
+          "type": "number",
+          "range_min" : 1,
+          "range_max" : 7,
+          "variable_to_change" : "days_per_week"
+        },
+        {
+          "prompt": "How many hours per ** day ** would you be willing to dedicate to your acitvity?",
+          "type": "time_input",
+          "variable_to_change" : "time_willing_to_spen_on_studying_per_day"
+        },
+        {
+          "prompt": "Are you happy with the current grade? (or performance)",
+          "type": "yes/no",
+          "variable_to_change" : "is_happy_with_current_grades"
+        }
+      ]
+    },
+    "stragegy": {
+      
+    },
+    "study_location": {
+      
     }
+  }
 }
